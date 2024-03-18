@@ -1,15 +1,15 @@
 * {
     margin: 0;
-    /*o * diz que está pegando todos os elementos e colocando estes paramametros*/
     padding: 0;
     box-sizing: border-box;
 }
 
 body {
     background: #EEEEEE;
-    font-family: "Montserrat Alternates", sans-serif;
-    width: 60%;
-    margin: 0 auto;
-    padding: 2% 0;
-    text-align: center;
+    font-family: "Montserra", sans-serif;
+    color: #290101;
+}
+
+header {
+
 }
