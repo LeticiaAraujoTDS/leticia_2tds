@@ -11,7 +11,7 @@ for ($i=0; $i < 4; $i++) {
     array_push($turmas, $turma);
 }
 $a = 0;
-for ($i=0; $i < 4; $i++) { 
-    $a = $a + $turmas[$i]["qtdAlunos"];
+foreach ($turmas as $turma) {
+    $a = $a + $turma["qtdAlunos"];
 }
 print ("\nA quantidade de alunos é " . $a . ".\n");
