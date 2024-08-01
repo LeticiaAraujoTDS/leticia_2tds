@@ -7,32 +7,49 @@ class Pokemon {
     public $ataque;
     public $defesa;
     public $velocidade;
-    public nivel;
+    public $nivel;
+    public $pontosVida;
+    public $experiencia;
 
-    function __construct($nome, $tipo, $ataque, $defesa, $velocidade, $nivel){
+    function __construct($nome, $tipo, $ataque, $defesa, $velocidade, $nivel, $pontosVida, $experiencia){
         $this->nome = $nome;
         $this->tipo = $tipo;
         $this->ataque = $ataque;
         $this->defesa = $defesa;
         $this->velocidade = $velocidade;
         $this->nivel = $nivel;
+        $this->pontosVida = $pontosVida;
+        $this->experiencia = $experiencia;
     }
-    function batalha($a){
-        echo "O Pokémon $a está em uma batalha.\n";
+    function batalhar(){
+        echo "O Pokémon está em uma batalha.\n";
+        $this->aumentarExperiencia(5);
     }
-    
-    function subirNivel ($b, $c, $d) {
-        if ($d % 2 == 0) {
-            $b += 1;
-            print "O Pokémon $c subiu de nivel! Seu nivel é $b agora. \n";        
-        }
-        else {
-            $b -= 1;
-            print "Infelizmente o Pokémon $c não teve sorte, e seu nível desceu. Agora o nível de $c é $b.\n";
-        }
+    function aumentarNivel() {
+        $this->nivel = $this->nivel +1;
+        $this->aumentarPontosVida();
+        $this->experiencia = 0;
     }
-    function aumentarExperiencia ($e) {
-        print "Após a batalha, o Pokémon $e ganhou experiencia! \n";
+    function aumentarPontosVida() {
+        $this->pontosVida = $this->nivel * 10;
+    }
+    function aumentarExperiencia($exp) {
+        $this->experiencia += $exp;
+        if($this->experiencia >= 100)
+            $this->aumentarNivel();
+    }
+    function __toString(){ 
+
+        $texto = "\nNome = " . $this->nome;   
+        $texto .= "\nTipo = " . $this->tipo;
+        $texto .= "\nAtaque = " . $this->ataque;
+        $texto .= "\nDefesa = " . $this->defesa;
+        $texto .= "\nVelocidade = " . $this->velocidade;
+        $texto .= "\nNível = " . $this->nivel;
+        $texto .= "\nPontos de Vida = " . $this->pontosVida;
+        $texto .= "\nExperiência = " . $this->experiencia . "\n"; 
+
+        return $texto;
     }
 }
 
@@ -45,11 +62,13 @@ for ($i=1; $i <= $num ; $i++) {
     $defesa = readline("Qual a defesa do pokémon $i? \n");
     $velocidade = readline("Qual a velocidade do pokémon $i? \n");
     $nivel = readline("Qual o nível do pokémon $i? \n");
-    $pokemons = new Pokemon ($nome,$tipo, $ataque, $defesa, $velocidade, $nivel);
+    $experiencia = readline("Qual a experiência do Pokémon? \n");
+    $pontosVida = readline("Qual a quantidade de pontos de vida do Pokémon $i? \n");
+    $pokemons = new Pokemon ($nome,$tipo, $ataque, $defesa, $velocidade, $nivel, $pontosVida, $experiencia);
 
-    $pokemons-> batalha($nome);
-    print "Vamos descobrir se o Pokémon foi bem na batalha. ALERTA: Se ele não for bem, seu nível descerá.\n";
-    $opcao = readline("Informe um número: (escolha bem)");
-    $pokemons-> subirNivel($nivel, $nome, $opcao);
-    $pokemons-> aumentarExperiencia($nome); 
+    echo "\nAgora vamos descobrir se o Pokémon se saiu bem em batalha:\n";
+    $pokemons-> batalhar();
+    $pokemons-> aumentarNivel();
+    $pokemons-> aumentarExperiencia($experiencia);
+    echo $pokemons;
 }
